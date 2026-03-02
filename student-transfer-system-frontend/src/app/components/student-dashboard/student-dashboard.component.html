@@ -1,0 +1,118 @@
+<div class="dashboard-wrapper">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Student Panel</h3>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a [class.active]="selectedSection === 'profile'" (click)="setSection('profile')">
+            <span class="icon">👤</span> Profile
+          </a>
+        </li>
+        <li>
+          <a [class.active]="selectedSection === 'requests'" (click)="setSection('requests')">
+            <span class="icon">🔄</span> Transfer Requests
+          </a>
+        </li>
+        <li>
+          <a [class.active]="selectedSection === 'documents'" (click)="setSection('documents')">
+            <span class="icon">📄</span> Documents
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()">
+            <span class="icon">🚪</span> Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="page-header">
+      <h1>
+        {{ selectedSection === 'profile' ? 'Welcome, ' + (student?.name || 'Student') :
+           selectedSection === 'requests' ? 'My Transfer Requests' :
+           'Upload Documents / Marksheets' }}
+      </h1>
+    </header>
+
+    <div class="content-body">
+
+      <!-- Profile -->
+      <div *ngIf="selectedSection === 'profile'">
+        <div class="card">
+          <div class="card-header">
+            <h2>Student Information</h2>
+          </div>
+          <div class="card-body">
+            <div class="info-row"><strong>Register Number:</strong> {{ student?.regId || '—' }}</div>
+            <div class="info-row"><strong>School:</strong> {{ student?.school || '—' }}</div>
+            <div class="info-row"><strong>Date of Birth:</strong> {{ student?.dob || '—' }}</div>
+            <div class="info-row"><strong>Phone:</strong> {{ student?.phone || '—' }}</div>
+          </div>
+        </div>
+
+        <button class="btn btn-apply" (click)="openApplyDialog()">
+          Apply for School Transfer
+        </button>
+      </div>
+
+      <!-- Transfer Requests -->
+      <div *ngIf="selectedSection === 'requests'">
+        <div *ngIf="requests.length === 0" class="empty-state">
+          No transfer requests yet.
+        </div>
+
+        <div *ngFor="let req of requests" class="request-card">
+          <div class="request-header">
+            <h3>Request #{{ req.id || '?' }}</h3>
+            <span class="status-badge" [ngClass]="getStatusClass(req.status)">
+              {{ req.status || 'PENDING' }}
+            </span>
+          </div>
+          <div class="request-body">
+            <div class="info-row"><strong>To:</strong> {{ req.targetSchool || '—' }}</div>
+            <div class="info-row"><strong>Reason:</strong> {{ req.reason || '—' }}</div>
+            <div class="info-row" *ngIf="req.remarks"><strong>Remarks:</strong> {{ req.remarks }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documents -->
+      <div *ngIf="selectedSection === 'documents'">
+        <div class="card">
+          <div class="card-header">
+            <h2>Upload Documents / Marksheets</h2>
+          </div>
+          <div class="card-body">
+            <p class="placeholder-text">
+              File upload coming in next phase.<br>
+              (Marksheets, TC, Aadhaar, etc.)
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Apply Transfer Modal -->
+ 
+<div *ngIf="showApplyModal" class="modal-overlay" (click)="showApplyModal = false">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <app-transfer-apply-dialog
+      [studentId]="student?.id"
+      [currentSchool]="student?.school"
+      [studentName]="student?.name"
+      [regId]="student?.regId"
+      (close)="closeApplyModal($event)">
+    </app-transfer-apply-dialog>
+  </div>
+</div>
+
+</div>

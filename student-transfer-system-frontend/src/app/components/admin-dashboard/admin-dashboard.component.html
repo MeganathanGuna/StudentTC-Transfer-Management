@@ -1,0 +1,108 @@
+<div class="dashboard-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Admin Panel</h3>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <button class="sidebar-link" 
+                  [class.active]="selectedSection === 'notifications'" 
+                  (click)="setSection('notifications')">
+            <span class="icon">🔔</span> Notifications
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-link" 
+                  [class.active]="selectedSection === 'profile'" 
+                  (click)="setSection('profile')">
+            <span class="icon">👤</span> Profile
+          </button>
+        </li>
+        <li>
+          <button class="sidebar-link" (click)="logout()">
+            <span class="icon">🚪</span> Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="page-header">
+      <h1>
+        {{ selectedSection === 'profile' ? 'Admin Profile' : 'Transfer Notifications' }}
+      </h1>
+    </header>
+
+    <div class="content-body">
+
+      <!-- Profile Section -->
+      <div *ngIf="selectedSection === 'profile'" class="profile-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Account Information</h2>
+          </div>
+          <div class="card-body">
+            <div class="info-row">
+              <span class="label">Name</span>
+              <span class="value">{{ admin?.name || '—' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Employee ID</span>
+              <span class="value">{{ admin?.empId || '—' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Role</span>
+              <span class="value">{{ admin?.role || '—' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">School</span>
+              <span class="value">{{ admin?.school || '—' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Section -->
+      <div *ngIf="selectedSection === 'notifications'">
+        <div class="section-header">
+          <h2>Incoming Transfer Requests (to your school)</h2>
+        </div>
+
+        <div *ngIf="targetRequests.length === 0" class="empty-state">
+          No incoming transfer requests at this time.
+        </div>
+
+        <!-- Use the notification card component here -->
+        <app-notification-card
+          *ngFor="let req of targetRequests"
+          [request]="req"
+          [isAdminView]="true"
+          [isCurrentSchoolAdmin]="false"
+          (statusChanged)="updateStatus($event)"
+          (remarksSubmitted)="submitRemarks($event)">
+        </app-notification-card>
+
+        <div class="section-header">
+          <h2>Inspection Requests (from your school students)</h2>
+        </div>
+
+        <div *ngIf="currentRequests.length === 0" class="empty-state">
+          No inspection requests pending.
+        </div>
+
+        <!-- Use the notification card component here too -->
+        <app-notification-card
+          *ngFor="let req of currentRequests"
+          [request]="req"
+          [isAdminView]="true"
+          [isCurrentSchoolAdmin]="true"
+          (remarksSubmitted)="submitRemarks($event)">
+        </app-notification-card>
+      </div>
+    </div>
+  </main>
+</div>

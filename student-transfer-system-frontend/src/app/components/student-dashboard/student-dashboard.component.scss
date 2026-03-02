@@ -1,0 +1,191 @@
+.dashboard-wrapper {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.sidebar {
+  width: 240px;
+  background-color: #1e293b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+}
+
+.sidebar-header {
+  padding: 28px 20px;
+  border-bottom: 1px solid #334155;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  background: #111827;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0 0;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  color: #d1d5db;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background-color: #334155;
+  color: white;
+}
+
+.icon {
+  margin-right: 14px;
+  font-size: 1.4rem;
+  width: 24px;
+  text-align: center;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #ffffff;
+}
+
+.page-header {
+  padding: 28px 40px;
+  border-bottom: 1px solid #e2e8f0;
+  background: white;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  color: #1e293b;
+}
+
+.content-body {
+  padding: 40px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 18px 28px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #334155;
+}
+
+.card-body {
+  padding: 28px;
+}
+
+.profile-card .card-body {
+  font-size: 1.05rem;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.label {
+  width: 160px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.value {
+  flex: 1;
+  color: #1e293b;
+}
+
+.btn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.btn-apply {
+  background: linear-gradient(90deg, #10b981, #059669);
+  color: white;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(16, 185, 129, 0.4);
+  }
+}
+
+.request-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+  padding: 24px;
+  border-left: 5px solid #10b981;
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.request-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #065f46;
+}
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-pending   { background: #fef3c7; color: #92400e; }
+.status-inspect   { background: #dbeafe; color: #1e40af; }
+.status-approved  { background: #dcfce7; color: #166534; }
+.status-rejected  { background: #fee2e2; color: #991b1b; }
+
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  background: #f8fafc;
+  border-radius: 10px;
+  color: #64748b;
+  font-size: 1.15rem;
+  margin: 20px 0;
+}
+
+.placeholder-text {
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}

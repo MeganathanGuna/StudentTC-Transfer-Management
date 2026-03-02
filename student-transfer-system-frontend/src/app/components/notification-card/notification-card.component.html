@@ -1,0 +1,73 @@
+<div class="notification-card" [ngClass]="{'admin-card': isAdminView}">
+
+  <!-- Header with Request ID + Student Info + Status -->
+  <div class="card-header">
+    <div class="header-left">
+      <h3>Request #{{ request?.id || '?' }}</h3>
+      <div class="student-info">
+        <strong>{{ request?.studentName || 'Unknown Student' }}</strong>
+        <span class="reg-id">(Reg: {{ request?.regId || '?' }})</span>
+      </div>
+    </div>
+    <span class="status-badge" [ngClass]="getStatusClass(request?.status)">
+      {{ request?.status || 'PENDING' }}
+    </span>
+  </div>
+
+  <!-- Body: From, To, Reason, Remarks -->
+  <div class="card-body">
+    <div class="info-row">
+      <span class="label">From:</span>
+      <span class="value">{{ request?.currentSchool || '—' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">To:</span>
+      <span class="value">{{ request?.targetSchool || '—' }}</span>
+    </div>
+    <div class="info-row">
+      <span class="label">Reason:</span>
+      <span class="value">{{ request?.reason || '—' }}</span>
+    </div>
+    <div class="info-row" *ngIf="request?.remarks">
+      <span class="label">Remarks:</span>
+      <span class="value">{{ request?.remarks }}</span>
+    </div>
+  </div>
+
+  <!-- Admin controls (keep exactly as you have) -->
+  <div *ngIf="isAdminView && request?.status !== 'APPROVED' && request?.status !== 'REJECTED'" class="admin-actions">
+
+    <ng-container *ngIf="isCurrentSchoolAdmin">
+      <div class="remarks-section">
+        <textarea 
+          [(ngModel)]="remarksText" 
+          placeholder="Add remarks / feedback..." 
+          rows="3" 
+          class="remarks-textarea"></textarea>
+        <button class="btn btn-primary" 
+                (click)="submitRemarks()" 
+                [disabled]="!remarksText?.trim()">
+          Send Remarks
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isCurrentSchoolAdmin">
+      <div class="status-section">
+        <select [(ngModel)]="selectedStatus" class="status-select">
+          <option value="">Select Action</option>
+          <option value="INSPECT">Inspect</option>
+          <option value="APPROVED">Approve</option>
+          <option value="REJECTED">Reject</option>
+        </select>
+        <button class="btn btn-primary" 
+                (click)="changeStatus()" 
+                [disabled]="!selectedStatus">
+          Update Status
+        </button>
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>

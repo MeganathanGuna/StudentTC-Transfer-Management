@@ -1,0 +1,22 @@
+<div class="modal-content">
+
+  <div class="modal-header">
+    <h2>Choose Registration Type</h2>
+  </div>
+
+  <div class="modal-body">
+    <div class="choice-buttons">
+      <button class="btn btn-student" (click)="select('student')">
+        Register as Student
+      </button>
+      <button class="btn btn-admin" (click)="select('admin')">
+        Register as Admin / School Staff
+      </button>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-close" (click)="close()">Close</button>
+  </div>
+
+</div>

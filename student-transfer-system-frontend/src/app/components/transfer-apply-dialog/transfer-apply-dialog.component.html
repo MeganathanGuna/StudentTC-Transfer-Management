@@ -1,0 +1,53 @@
+<div class="apply-dialog">
+
+  <div class="dialog-header">
+    <h2>Apply for School Transfer</h2>
+  </div>
+
+  <form class="apply-form">
+
+    <div class="form-group">
+      <label [class.active]="true">Student Name</label>
+      <input type="text" [value]="studentName || 'Loading...'" disabled placeholder="Your name">
+    </div>
+
+    <div class="form-group">
+      <label [class.active]="true">Register Number</label>
+      <input type="text" [value]="regId || 'Loading...'" disabled placeholder="Your register number">
+    </div>
+
+    <div class="form-group">
+      <label [class.active]="true">Current School</label>
+      <input type="text" [value]="request.currentSchool || 'Loading...'" disabled placeholder="Your current school">
+    </div>
+
+    <div class="form-group">
+      <label [class.active]="request.targetSchool"></label>
+      <select [(ngModel)]="request.targetSchool" name="targetSchool" required>
+        <option value="" disabled>Select desired school</option>
+        <option *ngFor="let s of schools" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label [class.active]="request.reason"></label>
+      <textarea
+        [(ngModel)]="request.reason"
+        name="reason"
+        rows="4"
+        required
+        placeholder="Explain why you want to transfer (e.g., better facilities, location, etc.)"></textarea>
+    </div>
+
+    <div class="dialog-actions">
+      <button type="button" class="cancel-btn" (click)="cancel()" [disabled]="loading">
+        Cancel
+      </button>
+      <button type="button" class="submit-btn" (click)="submit()" [disabled]="loading || !request.targetSchool || !request.reason?.trim()">
+        {{ loading ? 'Submitting...' : 'Submit Application' }}
+      </button>
+    </div>
+
+  </form>
+
+</div>

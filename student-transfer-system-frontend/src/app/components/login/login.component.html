@@ -1,0 +1,76 @@
+<div class="login-wrapper">
+
+  <div class="login-card">
+    <div class="login-header">
+      <h1>School Transfer System</h1>
+      <p>Sign in to continue</p>
+    </div>
+
+    <form class="login-form" (ngSubmit)="login()">
+      <div class="form-group">
+        <label [class.active]="username"></label>
+        <input type="text" [(ngModel)]="username" name="username" required placeholder="Enter your username">
+      </div>
+
+      <div class="form-group">
+        <label [class.active]="password"></label>
+        <input type="password" [(ngModel)]="password" name="password" required placeholder="Enter your password">
+      </div>
+
+      <div class="form-group">
+        <label [class.active]="role">Login as</label>
+        <select [(ngModel)]="role" name="role" required>
+          <option value="" disabled selected hidden>Select role</option>
+          <option value="Student">Student</option>
+          <option value="Admin">Admin / School Staff</option>
+        </select>
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="!username || !password || !role">
+        Sign In
+      </button>
+    </form>
+
+    <div class="login-actions">
+      <button class="action-link" (click)="showRegisterModal = true">Register</button>
+      <button class="action-link">Forgot password?</button>
+    </div>
+  </div>
+
+  <!-- Register Choice Modal -->
+  <div *ngIf="showRegisterModal" class="modal-overlay" (click)="showRegisterModal = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Choose Registration Type</h2>
+      </div>
+      <div class="modal-body">
+        <div class="choice-buttons">
+          <button class="btn btn-student" (click)="selectRegisterType('student')">
+            Register as Student
+          </button>
+          <button class="btn btn-admin" (click)="selectRegisterType('admin')">
+            Register as Admin / School Staff
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-close" (click)="showRegisterModal = false">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Student Register Modal -->
+  <div *ngIf="showStudentRegister" class="modal-overlay" (click)="showStudentRegister = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <app-register-student (closeModal)="onStudentRegisterClose($event)"></app-register-student>
+    </div>
+  </div>
+
+  <!-- Admin Register Modal -->
+  <div *ngIf="showAdminRegister" class="modal-overlay" (click)="showAdminRegister = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <app-register-admin (closeModal)="onAdminRegisterClose($event)"></app-register-admin>
+    </div>
+  </div>
+
+</div>
