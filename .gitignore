@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+.angular/
+
+# Java
+target/
+*.class
+
+# Logs
+*.log
+
+# Env files
+.env
+
+# OS
+.DS_Store
